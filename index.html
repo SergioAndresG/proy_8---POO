@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+     console.log()
+     console.log()
+     console.log('EJERCICIO DE SEDAN- DE AUTOMOVIL')
+     console.log()
+
+function Automovil(marca, linea, modelo, cilindraje, precio) {
+    this.marca = marca;
+    this.linea = linea;
+    this.modelo = modelo;
+    this.cilindraje = cilindraje;
+    this.precio = precio;
+}
+
+Automovil.prototype.informacionVehiculo = function() {
+    console.log(`Marca: ${this.marca}`);
+    console.log(`Línea: ${this.linea}`);
+    console.log(`Modelo: ${this.modelo}`);
+    console.log(`Cilindraje: ${this.cilindraje}`);
+    console.log(`Precio: ${this.precio}`);
+};
+
+Automovil.prototype.revisionTecnicoMecanica = function() {
+    if (this.modelo <= new Date().getFullYear() - 5) {
+        console.log(`Este modelo de automóvil necesita pasar la revisión técnico-mecánica`);
+    } else {
+        console.log(`No es necesario realizar la revisión técnico-mecánica para este modelo de automóvil`);
+    }
+};
+
+Automovil.prototype.nivelGasolina = function() {
+    const nivel = Math.floor(Math.random() * 100) + 1;
+    console.log(`El nivel de gasolina actual es: ${nivel}`);
+};
+
+// Crear tres objetos de automóviles
+let auto1 = new Automovil('Toyota', 'Corolla', 2020, 2000, 25000);
+let auto2 = new Automovil('Honda', 'Civic', 2018, 1800, 22000);
+let auto3 = new Automovil('Ford', 'Focus', 2019, 1600, 20000);
+
+
+console.log({auto1})
+auto1.informacionVehiculo();
+auto1.revisionTecnicoMecanica();
+auto1.nivelGasolina();
+
+console.log({auto2})
+auto2.informacionVehiculo();
+auto2.revisionTecnicoMecanica();
+auto2.nivelGasolina();
+
+console.log({auto3})
+auto3.informacionVehiculo();
+auto3.revisionTecnicoMecanica();
+auto3.nivelGasolina();
+
+console.log(' HEREDADOS ');
+function Sedan(marca, linea, modelo, cilindraje, 
+                precio, numPasajeros, tipoCaja) {
+    this.super = Automovil;
+    this.super(marca, linea, modelo, cilindraje, precio);
+    this.numPasajeros = numPasajeros;
+    this.tipoCaja = tipoCaja;
+}
+
+Sedan.prototype = new Automovil();
+Sedan.prototype.constructor = Automovil;
+
+Sedan.prototype.numeroCinturonesSeguridad = function() {
+    console.log(`El auto tiene ${this.numPasajeros} cinturones de seguridad`);
+};
+
+
+
+Sedan.prototype.informacionVehiculo = function() {
+    console.log(`Este es un auto, que tiene capacidad de ` + this.numPasajeros
+    + `tripulantes y este auto posee una caja de cambios de tipo` + this.tipoCaja)
+};
+
+
+
+
+let sedan1 = new Sedan('Chevrolet', 'Spark', 2017, 1200, 15000, 4, 'Automática');
+
+
+console.log({sedan1})
+
+sedan1.numeroCinturonesSeguridad();
+sedan1.informacionVehiculo();
+
+
+console.log()
+console.log()
+console.log('EJERCICIO INSTRUCTORES')
+console.log()
+
+
+function Instructor(nombre, linea, jornada) {
+  this.nombre = nombre;
+  this.linea = linea;
+  this.jornada = jornada;
+}
+
+Instructor.prototype.informacionInstructor = function() {
+  console.log("Información del instructor:");
+  console.log("Nombre: " + this.nombre);
+  console.log("Línea: " + this.linea);
+  console.log("Jornada: " + this.jornada);
+};
+
+Instructor.prototype.programaFormacion = function() {
+  if (this.linea === "Software") {
+    console.log("Programa de formación: Análisis y desarrollo de software");
+  } else if (this.linea === "Hardware") {
+    console.log("Programa de formación: Administración de redes");
+  } else {
+    console.log("No se tiene registro calificado para esta línea tecnológica");
+  }
+};
+
+
+
+let instructor1 = new Instructor("Juan Pérez", "Software", "Diurna");
+console.log({instructor1})
+instructor1.informacionInstructor();
+instructor1.programaFormacion();
+
+
+let instructor2 = new Instructor("María Gómez", "Hardware", "Tarde");
+console.log({instructor2})
+instructor2.informacionInstructor();
+instructor2.programaFormacion();
+
+
+let instructor3 = new Instructor("Pedro López", "Redes", "Nocturna");
+console.log({instructor3})
+instructor3.informacionInstructor();
+instructor3.programaFormacion();
+
+
+function InstructorPlanta(nombre, linea, jornada, fechaVinculacion) {
+  this.super = Instructor;
+  this.super(nombre, linea, jornada,);
+  this.fechaVinculacion = fechaVinculacion;
+}
+
+InstructorPlanta.prototype = new Instructor();
+InstructorPlanta.prototype.constructor = Instructor;
+
+InstructorPlanta.prototype.informacionInstructor = function() {
+  console.log(`Hola me llamo ${this.nombre} y soy de la linea ${this.linea}` + ` ` +
+              `y estoy en la jornada ${this.jornada}`)
+};
+
+InstructorPlanta.prototype.tiempoVinculacion = function() {
+  let fechaActual = new Date();
+  let fechaVinculacion = new Date(this.fechaVinculacion);
+  let mesesVinculacion = (fechaActual.getFullYear() - fechaVinculacion.getFullYear()) * 12;
+  mesesVinculacion -= fechaVinculacion.getMonth();
+  mesesVinculacion += fechaActual.getMonth();
+  console.log("Tiempo de vinculación en meses: " + mesesVinculacion);
+};
+
+
+let instructorPlanta = new InstructorPlanta("Luis Rodríguez", "Software", "Mañana", "2019-02-10");
+console.log({instructorPlanta})
+instructorPlanta.informacionInstructor();
+instructorPlanta.programaFormacion();
+instructorPlanta.tiempoVinculacion();
+
+
+
+
+
+
+
+
+console.log()
+console.log()
+console.log("EJERICIO PEDIDO DE RESTAURANTE" )
+console.log()
+
+
+function Restaurante(plato, cantidad, precio) {
+  this.plato = plato;
+  this.cantidad = cantidad;
+  this.precio = precio;
+}
+
+Restaurante.prototype.pedidoRestaurante = function() {
+  console.log("Pedido del restaurante:");
+  console.log("Plato: " + this.plato);
+  console.log("Cantidad: " + this.cantidad);
+  console.log("Precio: $" + this.precio);
+};
+
+Restaurante.prototype.valorPedido = function() {
+  var valor = this.precio * this.cantidad;
+  return valor;
+};
+
+Restaurante.prototype.descuentoPedido = function() {
+  if (this.cantidad > 2 && this.valorPedido() >= 50000) {
+    return this.valorPedido() * 0.1; 
+  } else {
+    return 0;
+  }
+};
+
+
+let pedido1 = new Restaurante("Hamburguesa", 2, 15000);
+console.log({pedido1})
+pedido1.pedidoRestaurante();
+console.log("Valor del pedido (sin descuento): $" + pedido1.valorPedido());
+console.log("Descuento aplicado: $" + pedido1.descuentoPedido());
+
+let pedido2 = new Restaurante("Pizza", 4, 12000);
+console.log({pedido2})
+pedido2.pedidoRestaurante();
+console.log("Valor del pedido (sin descuento): $" + pedido2.valorPedido());
+console.log("Descuento aplicado: $" + pedido2.descuentoPedido());
+
+let pedido3 = new Restaurante("Ensalada", 1, 8000);
+console.log({pedido3})
+pedido3.pedidoRestaurante();
+console.log("Valor del pedido (sin descuento): $" + pedido3.valorPedido());
+console.log("Descuento aplicado: $" + pedido3.descuentoPedido());
+
+
+function RestauranteDomicilio(plato, cantidad, precio, tiempoEntrega, valorDomicilio) {
+  this.super = Restaurante;
+  this.super(plato, cantidad, precio);
+  this.tiempoEntrega = tiempoEntrega;
+  this.valorDomicilio = valorDomicilio;
+}
+
+RestauranteDomicilio.prototype = new Restaurante();
+RestauranteDomicilio.prototype.constructor = Restaurante;
+
+
+RestauranteDomicilio.prototype.informacionRestaurante = function() {
+  console.log(`Su pedido de ${this.plato} esta en camino, usted ha ordenado` + ` ` +
+  `${this.cantidad} porciones, el valor de su orden es ${this.precio}, su domicilio` + ` ` +
+  `se demorara ${this.tiempoEntrega} y el valor de su domicilio es de ${this.valorDomicilio}`);
+  return ''
+};
+
+RestauranteDomicilio.prototype.valorPedido = function() {
+  let valorPedido = Restaurante.prototype.valorPedido;
+  return valorPedido + this.valorDomicilio;
+};
+
+
+let pedidoDomicilio = new RestauranteDomicilio("Sushi", 3, 18000, "45 minutos", 5000);
+console.log({RestauranteDomicilio})
+pedidoDomicilio.informacionRestaurante();
+pedidoDomicilio.valorPedido();
+
+
+
+
+  </script>
+</body>
+</html>
+
+  
